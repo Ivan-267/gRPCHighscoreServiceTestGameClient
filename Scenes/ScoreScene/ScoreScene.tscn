@@ -1,0 +1,132 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/ScoreScene/HighscoreManager.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/ScoreScene/ErrorDisplayManager.cs" type="Script" id=2]
+[ext_resource path="res://Scenes/ScoreScene/ScoreList.cs" type="Script" id=3]
+
+[sub_resource type="StyleBoxLine" id=1]
+
+[node name="HighscoreManager" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+TabContainerPath = NodePath("TabContainer")
+ScoreLabelPath = NodePath("TabContainer/Your Score/VBoxContainer/Score")
+AllScoresListPath = NodePath("TabContainer/All Scores")
+Top10ScoresListPath = NodePath("TabContainer/Top 10 Scores")
+SubmitScoreButtonPath = NodePath("TabContainer/Your Score/VBoxContainer/SubmitScore")
+PlayAgainButtonPath = NodePath("TabContainer/Your Score/VBoxContainer/PlayAgain")
+NicknameLineEditPath = NodePath("TabContainer/Your Score/VBoxContainer/Nickname")
+ErrorDisplayManagerPath = NodePath("ErrorDisplayManager")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+
+[node name="Your Score" type="CenterContainer" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Your Score"]
+margin_left = 451.0
+margin_top = 215.0
+margin_right = 565.0
+margin_bottom = 324.0
+alignment = 1
+
+[node name="Score" type="Label" parent="TabContainer/Your Score/VBoxContainer"]
+margin_right = 114.0
+margin_bottom = 14.0
+text = "Your score is: 100"
+align = 1
+
+[node name="PlayAgain" type="Button" parent="TabContainer/Your Score/VBoxContainer"]
+margin_top = 18.0
+margin_right = 114.0
+margin_bottom = 38.0
+text = "Play Again"
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Your Score/VBoxContainer"]
+margin_top = 42.0
+margin_right = 114.0
+margin_bottom = 57.0
+custom_constants/separation = 15
+custom_styles/separator = SubResource( 1 )
+
+[node name="Nickname" type="LineEdit" parent="TabContainer/Your Score/VBoxContainer"]
+margin_top = 61.0
+margin_right = 114.0
+margin_bottom = 85.0
+max_length = 16
+expand_to_text_length = true
+placeholder_text = "Enter a nickname"
+caret_blink = true
+
+[node name="SubmitScore" type="Button" parent="TabContainer/Your Score/VBoxContainer"]
+margin_top = 89.0
+margin_right = 114.0
+margin_bottom = 109.0
+text = "Submit score"
+
+[node name="All Scores" type="ItemList" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+max_columns = 4
+icon_mode = 0
+script = ExtResource( 3 )
+
+[node name="Top 10 Scores" type="ItemList" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+max_columns = 4
+icon_mode = 0
+script = ExtResource( 3 )
+
+[node name="ErrorDisplayManager" type="Node" parent="."]
+script = ExtResource( 2 )
+ServerErrorPopupPath = NodePath("ServerError")
+InvalidNicknamePath = NodePath("InvalidNickname")
+
+[node name="ServerError" type="AcceptDialog" parent="ErrorDisplayManager"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -245.5
+margin_top = -82.5
+margin_right = 245.5
+margin_bottom = 82.5
+window_title = "Connection Error"
+dialog_text = "There was an error while trying to communicate with the highscore server."
+dialog_autowrap = true
+
+[node name="InvalidNickname" type="AcceptDialog" parent="ErrorDisplayManager"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -245.5
+margin_top = -82.5
+margin_right = 245.5
+margin_bottom = 82.5
+window_title = "Invalid Nickname"
+dialog_text = "You've entered an invalid nickname. 
+
+Valid nicknames include at least one character."
+dialog_autowrap = true

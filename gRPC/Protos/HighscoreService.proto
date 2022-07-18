@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+option csharp_namespace = "Grpc.Services";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service HighscoreService {
+  // Create
+  rpc CreateScore(CreateScoreRequest) returns (CreateScoreResponse);
+  // Read
+  rpc GetAllScores(google.protobuf.Empty) returns (ScoreResponse);
+  rpc GetTopScores(GetTopScoresRequest) returns (ScoreResponse);
+  rpc GetScoresByPlayer(GetScoresByPlayerRequest) returns (ScoreResponse);
+  rpc GetScoreById(GetScoreByIdRequest) returns (GetScoreByIdResponse);
+
+}
+
+message CreateScoreRequest {
+	  string player_name = 1;
+	  int32 points = 2;
+}
+
+message CreateScoreResponse {
+	int32 id = 1;
+}
+
+message GetTopScoresRequest {
+	int32 number_of_scores = 1;
+}
+
+message GetScoresByPlayerRequest {
+	string player_name = 1;
+}
+
+message GetScoreByIdRequest {
+	int32 id = 1;
+}
+
+message GetScoreByIdResponse {
+	Score score = 1;
+}
+
+message ScoreResponse {
+	repeated Score scores = 1;
+}
+
+message Score {
+  int32 id = 1;
+  string player_name = 2;
+  int32 points = 3;
+  google.protobuf.Timestamp create_time = 4;
+}
