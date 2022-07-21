@@ -1,4 +1,4 @@
-# Highscore service test game client
+# gRPC Highscore service test game client
 This is a part of one of my C# practice projects, it is not designed for production use. 
 The code is shared mostly for demonstration purposes.
 
